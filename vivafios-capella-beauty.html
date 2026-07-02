@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VivaFios · Capella Beauty</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine-950:#210607;
+    --wine-900:#320a0b;
+    --wine-850:#3d0f10;
+    --wine-800:#4a1414;
+    --wine-700:#661d1c;
+    --gold:#c79a4b;
+    --gold-light:#e6c887;
+    --gold-dim:#9c7e46;
+    --cream:#f7efe1;
+    --cream-dim:#e4d5bd;
+    --ink:#221512;
+    --line: rgba(199,154,75,0.28);
+    --maxw: 1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--wine-950);
+    color:var(--cream);
+    font-family:'Manrope',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{font-family:'Playfair Display',serif;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    font-size:12.5px; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--gold-light); font-weight:700; display:inline-flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:""; width:22px; height:1px; background:var(--gold);}
+  ::selection{ background:var(--gold); color:var(--wine-950); }
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(33,6,7,0.78);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .navrow{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:var(--maxw); margin:0 auto;}
+  .logo{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .logo .mark{ width:26px; height:26px; }
+  .logo-text{ font-family:'Playfair Display',serif; font-weight:700; letter-spacing:.05em; font-size:19px; color:var(--cream);}
+  .logo-text span{color:var(--gold-light); font-style:italic; font-weight:500;}
+  nav.links{ display:flex; gap:34px; font-size:13.5px; letter-spacing:.03em;}
+  nav.links a{ text-decoration:none; color:var(--cream-dim); transition:color .2s;}
+  nav.links a:hover{ color:var(--gold-light); }
+  .navcta{
+    border:1px solid var(--gold); color:var(--gold-light); text-decoration:none;
+    font-size:13px; padding:9px 18px; border-radius:999px; letter-spacing:.03em;
+    transition:background .2s, color .2s;
+  }
+  .navcta:hover{ background:var(--gold); color:var(--wine-950); }
+  .navtoggle{ display:none; background:none; border:none; color:var(--cream); font-size:24px; cursor:pointer;}
+
+  /* ---------- DISCLAIMER ---------- */
+  .disclaimer{
+    background:var(--wine-950); border-bottom:1px solid var(--line);
+    padding:9px 28px; text-align:center; font-size:12px; letter-spacing:.02em;
+    color:var(--gold-dim); position:relative; z-index:51;
+  }
+  .disclaimer b{ color:var(--gold-light); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:200px 0 100px;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 78% 12%, rgba(199,154,75,0.16), transparent 55%),
+      radial-gradient(ellipse at 10% 90%, rgba(102,29,28,0.55), transparent 60%),
+      var(--wine-950);
+  }
+  .hero .wrap{ display:grid; grid-template-columns: 1.05fr 0.95fr; gap:40px; align-items:center; }
+  .hero h1{ font-size:clamp(38px,5vw,58px); line-height:1.06; font-weight:600; margin:22px 0 22px; color:var(--cream);}
+  .hero h1 em{ font-style:italic; color:var(--gold-light); font-weight:500;}
+  .hero p.lead{ font-size:17px; line-height:1.65; color:var(--cream-dim); max-width:480px; margin:0 0 34px;}
+  .cta-row{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:38px;}
+  .btn-primary{
+    background:var(--gold); color:var(--wine-950); text-decoration:none; font-weight:700;
+    font-size:14px; letter-spacing:.02em; padding:15px 28px; border-radius:999px; border:1px solid var(--gold);
+    transition:transform .2s, background .2s;
+  }
+  .btn-primary:hover{ background:var(--gold-light); transform:translateY(-2px); }
+  .btn-ghost{
+    text-decoration:none; color:var(--cream); font-weight:600; font-size:14px;
+    padding:15px 26px; border-radius:999px; border:1px solid rgba(247,239,225,0.28);
+    transition:border-color .2s, color .2s;
+  }
+  .btn-ghost:hover{ border-color:var(--gold-light); color:var(--gold-light); }
+  .badges{ display:flex; gap:26px; flex-wrap:wrap; }
+  .badge{ display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--cream-dim); letter-spacing:.02em;}
+  .badge svg{ width:16px; height:16px; stroke:var(--gold-light); flex-shrink:0;}
+
+  .hero-visual{ position:relative; display:flex; justify-content:center; align-items:center; }
+  .tube-stage{ position:relative; width:100%; max-width:340px; }
+  .float-card{
+    position:absolute; background:rgba(247,239,225,0.06); border:1px solid var(--line);
+    backdrop-filter:blur(6px); border-radius:14px; padding:12px 16px; font-size:12px; color:var(--cream-dim);
+    line-height:1.4; max-width:172px; box-shadow:0 20px 40px rgba(0,0,0,0.35);
+  }
+  .float-card b{ display:block; color:var(--gold-light); font-family:'Playfair Display',serif; font-size:14px; font-weight:600; margin-bottom:2px;}
+  .float-1{ top:6%; left:-14%; animation: floaty 6s ease-in-out infinite; }
+  .float-2{ bottom:8%; right:-16%; animation: floaty 7s ease-in-out infinite 1s; }
+  @keyframes floaty{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+  @keyframes spinball{ 0%,92%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+  #applicatorBall{ transform-origin:170px 388px; animation: spinball 3.4s linear infinite; }
+
+  /* ---------- SECTION GENERIC ---------- */
+  section{ padding:110px 0; position:relative; }
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(28px,3.4vw,40px); font-weight:600; margin:16px 0 14px; line-height:1.15;}
+  .section-head p{ color:var(--cream-dim); font-size:16px; line-height:1.6; }
+
+  /* ---------- STORY (cream section) ---------- */
+  .story{ background:var(--cream); color:var(--ink); }
+  .story .eyebrow{ color:var(--gold-dim); }
+  .story .eyebrow::before{ background:var(--gold-dim); }
+  .story .section-head p{ color:#5c4a3d; }
+  .story-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:start; }
+  .story-grid .pull{
+    font-family:'Playfair Display',serif; font-style:italic; font-size:24px; line-height:1.5;
+    color:var(--wine-800); border-left:2px solid var(--gold); padding-left:22px;
+  }
+  .story-cols{ display:grid; grid-template-columns:1fr 1fr; gap:36px; }
+  .story-cols h3{ font-size:15px; text-transform:uppercase; letter-spacing:.08em; color:var(--wine-800); margin:0 0 10px; font-family:'Manrope',sans-serif; font-weight:800;}
+  .story-cols p{ font-size:14.5px; line-height:1.65; color:#5c4a3d; margin:0; }
+
+  /* ---------- APPLICATOR / SIGNATURE ---------- */
+  .applicator{ background:var(--wine-900); }
+  .app-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; align-items:center; }
+  .app-demo{ display:flex; justify-content:center; }
+  .feature-list{ display:flex; flex-direction:column; gap:0; }
+  .feature-item{
+    display:grid; grid-template-columns:44px 1fr; gap:18px; padding:24px 0;
+    border-top:1px solid var(--line);
+  }
+  .feature-item:last-child{ border-bottom:1px solid var(--line); }
+  .feature-num{ font-family:'Playfair Display',serif; font-style:italic; color:var(--gold-dim); font-size:20px; }
+  .feature-item h3{ font-family:'Manrope',sans-serif; font-weight:700; font-size:16.5px; margin:0 0 6px; color:var(--cream);}
+  .feature-item p{ font-size:14.5px; line-height:1.6; color:var(--cream-dim); margin:0; }
+
+  /* ---------- BENEFITS ---------- */
+  .benefits{ background:var(--wine-950); }
+  .benefit-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden;}
+  .benefit-card{ background:var(--wine-900); padding:32px 26px; }
+  .benefit-card svg{ width:26px; height:26px; stroke:var(--gold-light); margin-bottom:16px; }
+  .benefit-card h3{ font-family:'Manrope',sans-serif; font-size:15.5px; font-weight:700; margin:0 0 8px; color:var(--cream);}
+  .benefit-card p{ font-size:13.5px; color:var(--cream-dim); line-height:1.55; margin:0; }
+
+  /* ---------- COMPOSICAO / MODO DE USO ---------- */
+  .split-two{ background:var(--cream); color:var(--ink); }
+  .split-two .eyebrow{ color:var(--gold-dim); }
+  .split-two .eyebrow::before{ background:var(--gold-dim); }
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:70px; }
+  .comp-list{ list-style:none; margin:0; padding:0; }
+  .comp-list li{ display:grid; grid-template-columns:auto 1fr; gap:16px; padding:18px 0; border-top:1px solid rgba(34,21,18,0.12); align-items:baseline;}
+  .comp-list li:last-child{ border-bottom:1px solid rgba(34,21,18,0.12); }
+  .comp-name{ font-family:'Playfair Display',serif; font-weight:600; font-size:17px; color:var(--wine-800); white-space:nowrap;}
+  .comp-desc{ font-size:14px; color:#5c4a3d; line-height:1.55; }
+  .steps{ list-style:none; margin:0; padding:0; counter-reset:step; }
+  .steps li{ position:relative; padding:0 0 30px 46px; counter-increment:step; }
+  .steps li:last-child{ padding-bottom:0; }
+  .steps li::before{
+    content: counter(step);
+    position:absolute; left:0; top:0; width:30px; height:30px; border-radius:50%;
+    border:1px solid var(--gold-dim); color:var(--wine-800); font-family:'Playfair Display',serif; font-weight:600;
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+  }
+  .steps li::after{
+    content:""; position:absolute; left:15px; top:30px; bottom:0; width:1px; background:rgba(34,21,18,0.15);
+  }
+  .steps li:last-child::after{ display:none; }
+  .steps h4{ margin:2px 0 6px; font-size:15px; font-weight:800; color:var(--ink); }
+  .steps p{ margin:0; font-size:14px; color:#5c4a3d; line-height:1.6; }
+
+  /* ---------- SETORES ---------- */
+  .setores{ background:var(--wine-900); }
+  .setor-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; }
+  .setor-card{
+    background:var(--wine-850); border:1px solid var(--line); border-radius:16px; padding:28px 24px;
+    transition:transform .25s, border-color .25s;
+  }
+  .setor-card:hover{ transform:translateY(-6px); border-color:var(--gold); }
+  .setor-tag{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-light); font-weight:700; }
+  .setor-card h3{ font-family:'Playfair Display',serif; font-size:21px; font-weight:600; margin:10px 0 12px; color:var(--cream);}
+  .setor-card p{ font-size:13.5px; line-height:1.6; color:var(--cream-dim); margin:0 0 16px; }
+  .setor-owner{ font-size:12px; color:var(--gold-dim); border-top:1px solid var(--line); padding-top:12px; letter-spacing:.02em;}
+  .flow-note{
+    margin-top:44px; padding:22px 26px; border:1px dashed var(--line); border-radius:14px;
+    font-size:14px; color:var(--cream-dim); line-height:1.6; text-align:center;
+  }
+  .flow-note b{ color:var(--gold-light); }
+
+  /* ---------- ONDE ENCONTRAR ---------- */
+  .encontrar{ background:var(--cream); color:var(--ink); }
+  .encontrar .eyebrow{ color:var(--gold-dim);}
+  .encontrar .eyebrow::before{ background:var(--gold-dim);}
+  .canal-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:20px; }
+  .canal-card{ background:#fff; border:1px solid rgba(34,21,18,0.1); border-radius:16px; padding:30px 26px; }
+  .canal-card svg{ width:24px; height:24px; stroke:var(--wine-800); margin-bottom:16px;}
+  .canal-card h3{ font-size:16px; font-weight:800; margin:0 0 8px; color:var(--ink);}
+  .canal-card p{ font-size:13.5px; color:#5c4a3d; line-height:1.6; margin:0; }
+
+  /* ---------- FOOTER ---------- */
+  footer{ background:var(--wine-950); border-top:1px solid var(--line); padding:60px 0 30px; }
+  .foot-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:40px; flex-wrap:wrap; padding-bottom:40px; border-bottom:1px solid var(--line); }
+  .foot-brand p{ max-width:320px; color:var(--cream-dim); font-size:13.5px; line-height:1.6; margin-top:14px;}
+  .foot-team{ display:flex; gap:40px; flex-wrap:wrap; }
+  .foot-team-col h4{ font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-light); margin:0 0 12px;}
+  .foot-team-col p{ font-size:13.5px; color:var(--cream-dim); margin:0 0 6px; }
+  .foot-bottom{ display:flex; justify-content:space-between; padding-top:24px; font-size:12px; color:var(--gold-dim); flex-wrap:wrap; gap:10px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px){
+    nav.links{ display:none; }
+    .navtoggle{ display:block; }
+    .hero .wrap, .app-grid, .story-grid, .two-col{ grid-template-columns:1fr; }
+    .hero{ padding-top:170px; }
+    .hero-visual{ order:-1; margin-bottom:20px; }
+    .benefit-grid{ grid-template-columns:1fr; }
+    .setor-grid{ grid-template-columns:1fr 1fr; }
+    .canal-grid{ grid-template-columns:1fr; }
+    .story-cols{ grid-template-columns:1fr; }
+    .float-card{ display:none; }
+  }
+  @media (max-width: 560px){
+    .setor-grid{ grid-template-columns:1fr; }
+    .cta-row{ flex-direction:column; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="disclaimer">⚠️ <b>Produto e marca fictícios</b> — criados para um trabalho escolar. Não é possível comprar; não use os canais indicados para contato real.</div>
+  <div class="navrow">
+    <a href="#top" class="logo">
+      <svg class="mark" viewBox="0 0 24 24" fill="none"><path d="M12 2C12 2 6 9 6 14a6 6 0 0012 0c0-5-6-12-6-12z" stroke="#c79a4b" stroke-width="1.4"/></svg>
+      <span class="logo-text">CAPELLA <span>Beauty</span></span>
+    </a>
+    <nav class="links">
+      <a href="#produto">O produto</a>
+      <a href="#aplicador">Como funciona</a>
+      <a href="#composicao">Composição</a>
+      <a href="#setores">Por trás da marca</a>
+      <a href="#encontrar">Onde encontrar</a>
+    </nav>
+    <a class="navcta" href="#encontrar">Ver disponibilidade</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">Creme pós-banho · Falhas capilares</span>
+        <h1>Fios mais fortes começam com <em>um gesto</em> depois do banho.</h1>
+        <p class="lead">VivaFios é o creme pós-banho da Capella Beauty com Minoxidil, Biotina, Ferro e Zinco — aplicado por uma bolinha giratória que dosa a quantidade certa e ainda massageia o couro cabeludo.</p>
+        <div class="cta-row">
+          <a href="#encontrar" class="btn-primary">Onde encontrar VivaFios</a>
+          <a href="#produto" class="btn-ghost">Conhecer o produto</a>
+        </div>
+        <div class="badges">
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>Dermatologicamente testado</span>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>Sem parabenos</span>
+          <span class="badge"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M20 6L9 17l-5-5"/></svg>Não testado em animais</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="tube-stage">
+          <div class="float-card float-1"><b>50g</b>Dura em média 40 aplicações diárias</div>
+          <div class="float-card float-2"><b>1x ao dia</b>Aplicação rápida, sem enxágue</div>
+          <svg viewBox="0 0 340 460" width="100%">
+            <defs>
+              <linearGradient id="tubeBody" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#661d1c"/>
+                <stop offset="100%" stop-color="#3d0f10"/>
+              </linearGradient>
+            </defs>
+            <path d="M60 30 L280 30 L280 70 L235 340 L215 380 L125 380 L105 340 L60 70 Z" fill="url(#tubeBody)" stroke="#c79a4b" stroke-width="1.5"/>
+            <rect x="55" y="18" width="230" height="20" rx="4" fill="#4a1414" stroke="#c79a4b" stroke-width="1.5"/>
+            <text x="170" y="140" text-anchor="middle" fill="#e6c887" font-family="Playfair Display, serif" font-size="26" font-style="italic" font-weight="600">VivaFios</text>
+            <text x="170" y="166" text-anchor="middle" fill="#e4d5bd" font-family="Manrope, sans-serif" font-size="10.5" letter-spacing="2">CREME PÓS-BANHO</text>
+            <line x1="105" y1="195" x2="235" y2="195" stroke="#c79a4b" stroke-width="0.8" opacity="0.5"/>
+            <text x="170" y="222" text-anchor="middle" fill="#cbb9a2" font-family="Manrope, sans-serif" font-size="10" letter-spacing="1">MINOXIDIL · BIOTINA</text>
+            <text x="170" y="240" text-anchor="middle" fill="#cbb9a2" font-family="Manrope, sans-serif" font-size="10" letter-spacing="1">FERRO · ZINCO</text>
+            <path d="M125 380 L145 415 L195 415 L215 380 Z" fill="#e4d5bd" stroke="#c79a4b" stroke-width="1.5"/>
+            <path d="M145 415 L157 438 L183 438 L195 415 Z" fill="#e4d5bd" stroke="#c79a4b" stroke-width="1.2"/>
+            <g id="applicatorBall">
+              <circle cx="170" cy="438" r="13" fill="#cfa25a" stroke="#8a6a30" stroke-width="1"/>
+              <path d="M164 434 a7 7 0 0 1 8 -2" stroke="#f3ddab" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE O PRODUTO -->
+  <section class="story" id="produto">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Sobre o produto</span>
+        <h2>Um creme, dois efeitos: tratamento e massagem.</h2>
+      </div>
+      <div class="story-grid">
+        <p class="pull">"Nosso produto é um creme pós-banho para ajudar nas falhas capilares, composto por Minoxidil, Biotina, Ferro e Zinco."</p>
+        <div class="story-cols">
+          <div>
+            <h3>O problema</h3>
+            <p>Falhas capilares afetam a autoestima e costumam pedir uma rotina de cuidado constante — algo que a correria do dia a dia dificulta.</p>
+          </div>
+          <div>
+            <h3>A resposta da Capella</h3>
+            <p>Um creme prático, para usar logo após lavar os cabelos, com fórmula ativa e um aplicador desenhado para não desperdiçar nem uma gota.</p>
+          </div>
+          <div>
+            <h3>Para quem é</h3>
+            <p>Pessoas que notam fios mais fracos ou entradas e queda visíveis, e querem incluir um cuidado simples na rotina — sem passos extras.</p>
+          </div>
+          <div>
+            <h3>A promessa</h3>
+            <p>Fortalece, estimula e ajuda no crescimento capilar, com uso diário e sem enxágue.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APLICADOR (SIGNATURE) -->
+  <section class="applicator" id="aplicador">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">O detalhe que é a marca registrada</span>
+        <h2>A embalagem também faz parte do tratamento.</h2>
+        <p>A bisnaga triangular do VivaFios termina em uma bolinha giratória: ela dosa a quantidade certa de creme enquanto massageia o couro cabeludo — sem desperdício e sem sujar as mãos.</p>
+      </div>
+      <div class="app-grid">
+        <div class="app-demo">
+          <svg viewBox="0 0 260 260" width="100%" style="max-width:280px;">
+            <path d="M40 20 L220 20 L180 190 L165 220 L95 220 L80 190 Z" fill="none" stroke="#c79a4b" stroke-width="1.5" opacity="0.7"/>
+            <line x1="130" y1="20" x2="130" y2="220" stroke="#c79a4b" stroke-width="0.6" opacity="0.35" stroke-dasharray="3 5"/>
+            <g id="applicatorBall2">
+              <circle cx="130" cy="228" r="17" fill="#cfa25a" stroke="#8a6a30" stroke-width="1.2"/>
+              <path d="M121 222 a10 10 0 0 1 11 -3" stroke="#f3ddab" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            </g>
+            <path d="M130 250 q34 8 34 30" stroke="#e6c887" stroke-width="1.2" fill="none" opacity="0.55"/>
+            <path d="M130 250 q-34 8 -34 30" stroke="#e6c887" stroke-width="1.2" fill="none" opacity="0.55"/>
+          </svg>
+        </div>
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="feature-num">01</span>
+            <div><h3>Aplicador inteligente</h3><p>A bolinha giratória libera a quantidade ideal de produto a cada movimento, evitando desperdício.</p></div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-num">02</span>
+            <div><h3>Massagem capilar</h3><p>Enquanto aplica, a bolinha massageia o couro cabeludo e ajuda a ativar a circulação local.</p></div>
+          </div>
+          <div class="feature-item">
+            <span class="feature-num">03</span>
+            <div><h3>Formato triangular</h3><p>Facilita segurar e usar o produto até a última gota, sem deixar creme parado no fundo da bisnaga.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="benefits">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Benefícios</span>
+        <h2>O que o uso diário entrega</h2>
+      </div>
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2v20M2 12h20"/></svg>
+          <h3>Ajuda no crescimento dos fios</h3>
+          <p>Fórmula pensada para estimular áreas com falhas capilares.</p>
+        </div>
+        <div class="benefit-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 3l2.5 6H21l-5 4 2 7-6-4-6 4 2-7-5-4h6.5z"/></svg>
+          <h3>Fortalece desde a raiz</h3>
+          <p>Ferro e zinco atuam na base do fio, onde a queda começa.</p>
+        </div>
+        <div class="benefit-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="9"/></svg>
+          <h3>Ação antioxidante e nutritiva</h3>
+          <p>Biotina reforça a nutrição do couro cabeludo a cada aplicação.</p>
+        </div>
+        <div class="benefit-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 12c4-8 12-8 16 0-4 8-12 8-16 0z"/></svg>
+          <h3>Fórmula leve e não oleosa</h3>
+          <p>Absorve rápido, sem pesar ou deixar sensação de gordura.</p>
+        </div>
+        <div class="benefit-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 21s-7-4.5-7-11a7 7 0 0114 0c0 6.5-7 11-7 11z"/></svg>
+          <h3>Massagem que ativa a circulação</h3>
+          <p>O próprio gesto de aplicar já faz parte do tratamento.</p>
+        </div>
+        <div class="benefit-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>
+          <h3>Uso diário, sem enxágue</h3>
+          <p>Cabe na rotina: aplica depois do banho e segue o dia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPOSICAO + MODO DE USO -->
+  <section class="split-two" id="composicao">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Composição &amp; modo de uso</span>
+        <h2>O que tem dentro e como aplicar</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <ul class="comp-list">
+            <li><span class="comp-name">Minoxidil</span><span class="comp-desc">Auxilia no crescimento saudável dos fios.</span></li>
+            <li><span class="comp-name">Biotina</span><span class="comp-desc">Nutre e fortalece a fibra capilar.</span></li>
+            <li><span class="comp-name">Ferro</span><span class="comp-desc">Contribui para a força do fio desde a raiz.</span></li>
+            <li><span class="comp-name">Zinco</span><span class="comp-desc">Ação antioxidante, ajuda a equilibrar o couro cabeludo.</span></li>
+          </ul>
+        </div>
+        <div>
+          <ol class="steps">
+            <li><h4>Lave os cabelos</h4><p>Use o shampoo de costume e retire o excesso de água.</p></li>
+            <li><h4>Aplique com a bolinha</h4><p>Passe o aplicador diretamente nas áreas com falhas, em movimentos circulares.</p></li>
+            <li><h4>Massageie</h4><p>Deixe a bolinha girar naturalmente enquanto percorre o couro cabeludo.</p></li>
+            <li><h4>Não enxágue</h4><p>Siga o dia normalmente — o creme age sem precisar ser retirado.</p></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SETORES / POR TRAS DA MARCA -->
+  <section class="setores" id="setores">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Por trás da marca</span>
+        <h2>Os setores que colocam o VivaFios de pé</h2>
+        <p>Do estudo da fórmula até a prateleira, quatro áreas trabalham em conjunto para que o produto chegue até você.</p>
+      </div>
+      <div class="setor-grid">
+        <div class="setor-card">
+          <span class="setor-tag">01 · Produção</span>
+          <h3>Fórmula &amp; qualidade</h3>
+          <p>Estuda e desenvolve a fórmula com Minoxidil, Biotina, Ferro e Zinco, produz o creme e a embalagem, e faz o controle de qualidade em cada lote.</p>
+          <div class="setor-owner">Responsável: Sarah</div>
+        </div>
+        <div class="setor-card">
+          <span class="setor-tag">02 · Marketing</span>
+          <h3>Presença &amp; posicionamento</h3>
+          <p>Cuida das fotos e vídeos para redes sociais, posiciona o produto no mercado e planeja as ações de propaganda e exposição da marca.</p>
+          <div class="setor-owner">Responsável: Bianca</div>
+        </div>
+        <div class="setor-card">
+          <span class="setor-tag">03 · Vendas</span>
+          <h3>Distribuição</h3>
+          <p>Leva o VivaFios até sites online, farmácias, lojas de cosméticos e revendedores — ampliando o público da marca em lojas de confiança.</p>
+          <div class="setor-owner">Responsável: Alice</div>
+        </div>
+        <div class="setor-card">
+          <span class="setor-tag">04 · Financeiro</span>
+          <h3>Sustentação do negócio</h3>
+          <p>Controla o fluxo de caixa, organiza contas a pagar e mantém as notas fiscais em dia para o negócio operar com saúde financeira.</p>
+          <div class="setor-owner">Responsável: Cláudio</div>
+        </div>
+      </div>
+      <div class="flow-note">Os quatro setores dependem uns dos outros: <b>Produção</b> entrega o produto, <b>Marketing</b> o apresenta, <b>Vendas</b> o distribui e <b>Financeiro</b> sustenta todo o ciclo.</div>
+    </div>
+  </section>
+
+  <!-- ONDE ENCONTRAR -->
+  <section class="encontrar" id="encontrar">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Onde encontrar</span>
+        <h2>Fácil de comprar, onde você já confia</h2>
+        <p>O VivaFios foi pensado para estar presente nos canais que o público já frequenta.</p>
+      </div>
+      <div class="canal-grid">
+        <div class="canal-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4a1414" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 018 0v2"/></svg>
+          <h3>Lojas físicas</h3>
+          <p>Farmácias e lojas de cosméticos com boa reputação, para dar mais confiança na primeira compra.</p>
+        </div>
+        <div class="canal-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4a1414" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
+          <h3>Sites online</h3>
+          <p>Compra facilitada em marketplaces e no site da marca, com entrega para todo o Brasil.</p>
+        </div>
+        <div class="canal-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4a1414" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          <h3>Revendedores</h3>
+          <p>Parceiros que revendem o VivaFios, ampliando o alcance da Capella Beauty em novas regiões.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="logo-text">CAPELLA <span>Beauty</span></span>
+        <p>VivaFios é um creme pós-banho para falhas capilares, com Minoxidil, Biotina, Ferro e Zinco. Trabalho acadêmico desenvolvido para a disciplina de Auxiliar Administrativo — SEST SENAT.</p>
+      </div>
+      <div class="foot-team">
+        <div class="foot-team-col">
+          <h4>Equipe</h4>
+          <p>Kett — Produto</p>
+          <p>Sarah — Produção</p>
+          <p>Bianca — Marketing</p>
+          <p>Alice — Vendas</p>
+          <p>Cláudio — Financeiro</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Capella Beauty © VivaFios — projeto fictício desenvolvido para fins didáticos</span>
+      <span>@capellabeauty</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mirror the ball rotation on the second (aplicador) illustration
+  document.getElementById('applicatorBall2') && (document.getElementById('applicatorBall2').style.transformOrigin = '130px 228px');
+</script>
+</body>
+</html>
